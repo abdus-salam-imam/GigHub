@@ -10,6 +10,7 @@ namespace GigHub.Controllers
     {
         public ActionResult Index()
         {
+
             return View();
         }
 
