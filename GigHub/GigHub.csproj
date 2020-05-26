@@ -175,6 +175,10 @@
     <Compile Include="Migrations\202005261038530_AddForeignKeyPropertiesToGig.Designer.cs">
       <DependentUpon>202005261038530_AddForeignKeyPropertiesToGig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005261950576_AddNameToApplicationUser.cs" />
+    <Compile Include="Migrations\202005261950576_AddNameToApplicationUser.Designer.cs">
+      <DependentUpon>202005261950576_AddNameToApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\FutureDate.cs" />
     <Compile Include="ViewModels\GigsFormViewModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -294,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005261038530_AddForeignKeyPropertiesToGig.resx">
       <DependentUpon>202005261038530_AddForeignKeyPropertiesToGig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005261950576_AddNameToApplicationUser.resx">
+      <DependentUpon>202005261950576_AddNameToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
