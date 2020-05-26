@@ -171,6 +171,11 @@
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Migrations\202005261038530_AddForeignKeyPropertiesToGig.cs" />
+    <Compile Include="Migrations\202005261038530_AddForeignKeyPropertiesToGig.Designer.cs">
+      <DependentUpon>202005261038530_AddForeignKeyPropertiesToGig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\FutureDate.cs" />
     <Compile Include="ViewModels\GigsFormViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -256,7 +261,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Gigs\New.cshtml" />
+    <Content Include="Views\Gigs\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -286,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005251936286_PopulateGenresTable.resx">
       <DependentUpon>202005251936286_PopulateGenresTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005261038530_AddForeignKeyPropertiesToGig.resx">
+      <DependentUpon>202005261038530_AddForeignKeyPropertiesToGig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
