@@ -1,79 +1,92 @@
 ﻿@model GigHub.ViewModels.GigsViewModel
 
-
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = Model.Heading;
 }
 
-
 <h1>@Model.Heading</h1>
+@using (Html.BeginForm("Search","Gigs"))
+{   
+ 
+    <div class="form-group">
 
-    <ul class="gigs voffset4">
+        <div id="searchGigs" class="input-group">
 
-        @foreach (var gig in Model.UpcomingGigs)
-        {
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control" })
 
-            <li>
+            <span class="input-group-addon" >
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+
+        </div>
+    </div>
 
 
-                <div class="date">
-                    <div class="month">
-                        @gig.DateTime.ToString("MMM")
-                    </div>
-                    <div class="day">
-                        @gig.DateTime.ToString("d ")
-                    </div>
+}
+
+<ul class="gigs voffset4">
+
+    @foreach (var gig in Model.UpcomingGigs)
+    {
+
+        <li>
+
+
+            <div class="date">
+                <div class="month">
+                    @gig.DateTime.ToString("MMM")
                 </div>
+                <div class="day">
+                    @gig.DateTime.ToString("d ")
+                </div>
+            </div>
 
-                <div class="details">
-                    <span class="artist">
+            <div class="details">
+                <span class="artist">
 
-                        @gig.Artist.Name
+                    @Html.ActionLink(@gig.Artist.Name,"Details","Home",new {id=gig.Id},null)
 
-                        @if (Model.ShowActions)
-                        {
+                    
 
-                            <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@gig.ArtistId">Follow</button>
+                    @if (gig.IsCanceled)
+                    {
 
+                        <span class="label label-warning">Cancelled</span>
+                    }
 
-                        }
-
-
-
-                    </span>
-
-
-
-
-                    <span class="genre">
-                        @gig.Genre.Name
-                    </span>
 
                     @if (Model.ShowActions)
                     {
 
-                        <button data-gig-id="@gig.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
+                        <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@gig.ArtistId">Follow</button>
 
 
                     }
 
+                </span>
+                <span class="genre">
+                    @gig.Genre.Name
+                </span>
+
+                @if (Model.ShowActions && !gig.IsCanceled)
+                {
+
+                    <button data-gig-id="@gig.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
 
 
-
-                </div>
-
-                
-            </li>
-
-        }
+                }
+            </div>
 
 
+        </li>
 
-    </ul>
+    }
+
+</ul>
 
 
 @section scripts {
-    
+
     <script>
 
         $(document).ready(function () {
@@ -121,16 +134,16 @@
 
             });
         });
- 
+
 
 
     </script>
-    
-       
-    
-    
-    
-    }
+
+
+
+
+
+}
 
 
 

@@ -32,6 +32,16 @@
                 <span class="genre">
                     @gig.Genre.Name
                 </span>
+
+                <div class="actions">
+
+                    <a href="@Url.Action("Edit","Gigs",new { id =gig.Id})">Edit</a> |
+                    <a href="#" class="js-cancel-gig" data-gig-id="@gig.Id">Cancel</a>
+
+
+                </div>
+
+
             </div>
 
 
@@ -42,3 +52,69 @@
 
 
 </ul>
+
+
+
+@section scripts{
+    
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            $(".js-cancel-gig").click(function (e) {
+
+                var dialog = bootbox.dialog({
+                    title: 'Confirm',
+                    message: "<p>Are you sure you want to Cancel this gig.</p>",
+                    size: 'large',
+                    buttons: {
+
+                        noclose:{
+                            label: "No",
+                            className: 'btn-defualt',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        cancel: {
+                            label: "Cancel",
+                            className: 'btn-danger',
+                            callback: function () {
+
+                                $.ajax({
+
+                                    url: "/api/gigs/" + $(e.target).attr("data-gig-id"),
+                                    method: "DELETE"
+
+                                }).done(function () {
+
+                                    $(e.target).parents("li").fadeOut(function () {
+
+                                        $(this).remove();
+                                    });
+
+                                }).fail(function () {
+
+                                    alert("Something went wrong ")
+
+                                });
+
+                            }
+                        }
+                    }
+                });
+
+            });
+        });
+
+    </script>
+    
+    
+    }
+
+
+
+
+

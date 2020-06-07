@@ -1,6 +1,5 @@
 ﻿using GigHub.Models;
 using Microsoft.AspNet.Identity;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -16,18 +15,18 @@ namespace GigHub.Controllers
             _context = new ApplicationDbContext();
         }
 
+        
+             
         [Authorize]
         public ActionResult Index()
-        {
-            var userId = User.Identity.GetUserId();      
-            
-            var gigs = _context.Attendances
-                .Where(a => a.AttendeeId == userId)
-                .Select(a => a.Gig)
-                .Include(g => g.Artist)
-                .ToList();
+            {
+                var userId = User.Identity.GetUserId();
+                var artists = _context.Followings
+                    .Where(f => f.FollowerId == userId)
+                    .Select(f => f.Followee)
+                    .ToList();
 
-            return View(gigs);
-        }
+                return View(artists);
+            }
     }
 }

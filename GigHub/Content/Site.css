@@ -43,6 +43,11 @@ textarea {
 }
 /* Bootstrap Override*/
 
+.popover{
+
+    box-shadow:none;
+}
+
 .field-validation-error{
     color:red;
     font-weight:bold;
@@ -65,12 +70,25 @@ textarea {
     }
 
 
-    .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus
-    {
-        background-color:rgba(205,40,39,0.55)
-
-
+    .navbar-inverse .notifications {
+        
+        position:relative;
+        
+      
     }
+
+        .navbar-inverse .notifications .badge{
+
+            position:absolute;
+            top:8px;
+            right:-1px;
+            background-color:#a80a0a;
+        }
+
+
+        .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: rgba(205,40,39,0.55)
+        }
 
     .dropdown-menu {
         box-shadow:none;
@@ -108,7 +126,7 @@ h6,
 .form-control{
 
     font-size:17px;
-    padding:20px 15px;
+    height:44px;
     border-radius:9px;
 }
 
@@ -187,3 +205,52 @@ h6,
         font-size:15px;
     
     }
+
+
+.gigs > li .actions{
+
+    font-size:15px;
+    display:none;
+}
+
+.gigs > li:hover .actions{
+
+    display:block;
+}
+
+ul .notifications{
+
+    list-style:none;
+    padding-left:0;
+
+
+}
+
+ul .notifications li{
+
+    border-bottom:1px solid #ddd;
+    padding:10px ;
+}
+
+    ul .notifications li:last-child{
+
+        border-bottom:none;
+    }
+
+
+.popover-notifications .popover-content{
+
+    padding:0;
+
+}
+
+.popover-notifications ul.notifications .highlight{
+    font-weight:bold;
+}
+
+#searchGigs{
+
+    width:300px;
+
+}
+
