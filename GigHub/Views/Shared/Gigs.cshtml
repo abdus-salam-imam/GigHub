@@ -5,16 +5,16 @@
 }
 
 <h1>@Model.Heading</h1>
-@using (Html.BeginForm("Search","Gigs"))
-{   
- 
+@using (Html.BeginForm("Search", "Gigs"))
+{
+
     <div class="form-group">
 
         <div id="searchGigs" class="input-group">
 
             @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control" })
 
-            <span class="input-group-addon" >
+            <span class="input-group-addon">
                 <i class="glyphicon glyphicon-search"></i>
             </span>
 
@@ -24,7 +24,7 @@
 
 }
 
-<ul class="gigs voffset4">
+<ul id="gigs" class="gigs voffset4">
 
     @foreach (var gig in Model.UpcomingGigs)
     {
@@ -44,9 +44,9 @@
             <div class="details">
                 <span class="artist">
 
-                    @Html.ActionLink(@gig.Artist.Name,"Details","Home",new {id=gig.Id},null)
+                    @Html.ActionLink(@gig.Artist.Name, "Details", "Gigs", new { id = gig.Id }, null)
 
-                    
+
 
                     @if (gig.IsCanceled)
                     {
@@ -71,7 +71,7 @@
                 @if (Model.ShowActions && !gig.IsCanceled)
                 {
 
-                    <button data-gig-id="@gig.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
+                    <button data-gig-id="@gig.Id" class="btn @(Model.Attendances.Contains(gig.Id)?"btn-info":"btn-default") btn-sm pull-right js-toggle-attendance">Going ?</button>
 
 
                 }
@@ -93,51 +93,67 @@
 
             $(".js-toggle-attendance").click(function (e) {
 
-                $.post("/api/attendances", {
-                    gigId: $(e.target).attr("data-gig-id")
-                })
+                var button = $(e.target)
 
-                    .done(function () {
+                if (button.hasClass("btn-default")) {
 
-                        $(e.target)
-                            .removeClass("btn-default")
-                            .addClass("btn-info")
-                            .text("Going");
+                    $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
+                        .done(function () {
+                            button
+                                .removeClass("btn-default")
+                                .addClass("btn-info")
+                                .text("Going");
+
+                        })
+                        .fail(function () {
+
+                            alert("something failed")
+
+                        });
 
 
+                } else {
+                    $.ajax({
+                        url: "/api/attendances/" + button.attr("data-gig-id"),
+                        method: "Delete"
                     })
-                    .fail(function () {
-                        alert("something failed")
 
-                    });
+                        .done(function () {
+                            button
+                                .removeClass("btn-info")
+                                .addClass("btn-default")
+                                .text("Going?");
+
+                        })
+                        .fail(function () {
+                            alert("Something failed");
+                        });
+                }
+
 
             });
 
+        });
 
-            $(".js-toggle-follow").click(function (e) {
+        $(".js-toggle-follow").click(function (e) {
+            var button = $(e.target);
+            $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                .done(function () {
+                    button.text("Following");
 
-
-                $.post("/api/followings", {
-                    followeeId: $(e.target).attr("data-user-id")
                 })
+                .fail(function () {
+                    alert("something failed");
 
-                    .done(function () {
+                });
 
-                        $(e.target).text("Following")
 
-                    })
-
-                    .fail(function () {
-                        alert("something went fail")
-
-                    });
-
-            });
         });
 
 
 
     </script>
+
 
 
 
